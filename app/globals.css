@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .fcc {
+    @apply flex justify-center items-center;
+  }
+  .fc {
+    @apply flex items-center;
+  }
+  .fbc {
+    @apply flex justify-between items-center;
+  }
+  .primary-button {
+    @apply bg-black py-2 px-8 rounded-md text-white hover:opacity-80 disabled:bg-gray-400 disabled:cursor-not-allowed;
+  }
+  .skeleton {
+    @apply bg-[#E0E0E0]  animate-pulse;
+  }
+}
+.primary-input {
+  @apply block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6;
+}
+
+.ql-editor {
+  min-height: 400px;
+}
