@@ -6,18 +6,24 @@ import useArticle from "@/hooks/useArticle";
 import relativeTime from "dayjs/plugin/relativeTime";
 import dayjs from "dayjs";
 import { stripHtmlTags } from "@/utils/stripHtmlTags";
+import useUser from "@/hooks/useUser";
 
 dayjs.extend(relativeTime);
 export default function ArticleList() {
   const { articleData, articleDataLoading } = useArticle();
+  const { user } = useUser();
 
   return (
     <div>
       <div className="fbc border-y py-3">
         <p className="font-semibold">Create Public Note</p>
 
-        <Link href="/editor">
-          <button className="primary-button">Create</button>
+        <Link
+          href={user?.id ? "/editor" : "/auth/signin"}
+          className="fc gap-1 primary-button"
+        >
+          <span>Create</span>
+          {!user?.id && <LockIcon />}
         </Link>
       </div>
 
@@ -91,5 +97,28 @@ const ListLoader = ({ a }: any) => {
         </p>
       </div>
     </li>
+  );
+};
+
+const LockIcon = () => {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24}>
+      <path
+        d="M12 1C8.676 1 6 3.676 6 7v1c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2V7c0-3.324-2.676-6-6-6zm0 2c2.276 0 4 1.724 4 4v1H8V7c0-2.276 1.724-4 4-4zm0 10c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z"
+        style={{
+          stroke: "none",
+          strokeWidth: 1,
+          strokeDasharray: "none",
+          strokeLinecap: "butt",
+          strokeDashoffset: 0,
+          strokeLinejoin: "miter",
+          strokeMiterlimit: 4,
+          fill: "white",
+          fillRule: "nonzero",
+          opacity: 1,
+        }}
+        transform="matrix(.95 0 0 .95 .6 1.075)"
+      />
+    </svg>
   );
 };

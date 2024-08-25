@@ -56,7 +56,7 @@ export default function Editor({ id }: props) {
         event: "*",
         schema: "public",
         table: "article",
-        filter: `id=eq.5a662cef-f05f-49d3-9370-a4033cfaca14`,
+        filter: `id=eq.${id}`,
       },
       handleInserts
     )

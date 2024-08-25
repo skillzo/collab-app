@@ -1,14 +1,19 @@
 "use client";
 
 import { supabase } from "@/config/supabase";
+import useUser from "@/hooks/useUser";
 import { base_url } from "@/utils/constants";
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { FcGoogle } from "react-icons/fc";
+import { BiSolidHide } from "react-icons/bi";
+import { AiOutlineEye } from "react-icons/ai";
 
 export default function SignUpForm() {
   const router = useRouter();
+  const [showPass, setShowPass] = useState(false);
 
   const [cred, setCred] = useState({
     email: "",
@@ -26,8 +31,7 @@ export default function SignUpForm() {
     }
 
     if (data) {
-      console.log("data", data);
-      // router.push("/auth/signin");
+      router.push("/auth/signin");
     }
   };
 
@@ -38,11 +42,7 @@ export default function SignUpForm() {
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <img
-          alt="Your Company"
-          src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-          className="mx-auto  w-10"
-        />
+        <img alt="Your Company" src="/logo.png" className="mx-auto  w-10" />
         <h2 className="mt-5 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
           Resigter your account
         </h2>
@@ -80,27 +80,43 @@ export default function SignUpForm() {
               </label>
             </div>
 
-            <div className="mt-2">
+            <div className="relative mt-2 border rounded-xl">
               <input
                 id="password"
                 name="password"
-                type="text"
+                type={showPass ? "text" : "password"}
                 minLength={4}
                 required
                 onChange={handleChange}
                 autoComplete="current-password"
-                className="primary-input !px-2"
+                className=" outline-none border-none rounded-xl  bg-white w-full  p-2 focus-within:bg-transparent focus:bg-transparent"
               />
+
+              <div
+                onClick={() => setShowPass(!showPass)}
+                className="absolute right-2 top-2 text-2xl "
+              >
+                {!showPass ? <AiOutlineEye /> : <BiSolidHide />}
+              </div>
             </div>
           </div>
 
-          <div>
+          <div className="space-y-2">
             <button
               type="button"
               onClick={handleSignUp}
               className="primary-button w-full"
             >
-              Sign Up
+              Sign up
+            </button>
+
+            <button
+              type="button"
+              onClick={handleSignUp}
+              className="fcc gap-2 py-2 text-black border rounded-lg w-full text-sm font-semibold"
+            >
+              <FcGoogle size={25} />
+              <span> Sign up with google </span>
             </button>
           </div>
         </form>
